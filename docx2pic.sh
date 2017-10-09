@@ -1,7 +1,7 @@
 #!/bin/bash
 
-result_dir="docx2pic_result"
-tmp_dir="docx2pic_tmp"
+result_dir='docx2pic_result'
+tmp_dir='docx2pic_tmp'
 
 while [ -d "${tmp_dir}" ]
 do
