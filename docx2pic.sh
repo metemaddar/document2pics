@@ -9,7 +9,7 @@ do
 done
 mkdir -p "${tmp_dir}"
 
-for filename in *
+for filename in *.docx
 do
 	echo "Working with ${filename}"
 
