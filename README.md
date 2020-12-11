@@ -1,4 +1,4 @@
 document2pics
 =============
 
-Extract pictures of Text Microsoft word document
+Extract pictures from Microsoft Word document

@@ -1,33 +1,27 @@
-#!/bin/su
-mytmp=/tmp/docx2pic
-#Create temp directory
-mkdir -p $mytmp
-#Temp directory for extraction
-mkdir -p $mytmp/extraction
-#Directory to fetch images from it
-mymedia=extraction/word/media/
+#!/bin/bash
 
-for etmfile in "$@"
+result_dir='docx2pic_result'
+tmp_dir='docx2pic_tmp'
+
+while [ -d "${tmp_dir}" ]
 do
-#file name from input (maybe its path of file)
-fname=$(basename "$etmfile")
-#file name with it's path plus -pictures
-dstpics="${etmfile%.*}"-pictures
-#extract the file extension
-extension="${fname##*.}"
-#exact file name
-filename="${fname%.*}"
-
-#Now I just get docx's pictures. Because it rename them by image1 image2 ...
-if [[ "$extension" == "docx" ]]
-then
-	cp $etmfile ${mytmp}/${fname}.zip
-	unzip -q ${mytmp}/${fname}.zip -d ${mytmp}/extraction
-	#directory to put images in it
-	mkdir -p $dstpics
-	#Copy images to directory beside docx image
-	cp $mytmp/$mymedia/*.png $dstpics/
-	#remove temp files.
-	rm -r $mytmp/*
-fi
+ tmp_dir="${tmp_dir}_"
 done
+mkdir -p "${tmp_dir}"
+
+for filename in *.docx
+do
+	echo "Working with ${filename}"
+
+	unzip -q "${filename}" -d "${tmp_dir}"
+
+	dst_pics="${result_dir}/${filename%.*}"-pictures
+	mkdir -p "${dst_pics}"
+	find "${tmp_dir}" -name 'image*' -exec cp {} "${dst_pics}" \;
+
+	rm -r "${tmp_dir}"/*
+done
+
+rm -r "${tmp_dir}"
+
+echo 'All done'
