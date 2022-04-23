@@ -1,7 +1,7 @@
 document2pics
 =============
 
-Extract pictures from Microsoft Word document
+Extract pictures from LibreOffice Writer and Microsoft Word document
 
 ## Usage
 ```sh document2pic.sh```
